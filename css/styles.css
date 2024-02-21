@@ -70,6 +70,39 @@ button {
 
 /*  
    ========================================================================= 
-   =                            ADMIN DASHBOARD                            =   
+   =                            LIBRARY PROJECT                            =   
    =========================================================================  
    */
+
+.library-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: 0.2fr 1fr 0.1fr;
+}
+
+.library-container > * {
+  border: 2px solid black;
+}
+
+header {
+  grid-column: span 3;
+}
+
+footer {
+  grid-column: span 3;
+}
+
+.library-catalog {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  justify-items: center;
+  align-content: space-evenly;
+}
+
+.library-catalog > * {
+  width: 250px;
+  height: 350px;
+  border: 2px solid black;
+}
