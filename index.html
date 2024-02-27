@@ -16,9 +16,38 @@
 
         <div class="library-main">
             <aside>
-                <button>Add Book</button>
-                <button>Remove Book</button>
+                <button data-add-book>Add Book</button>
+                <button data-remove-book>Remove Book</button>
+
+                <dialog data-add-book-modal class="book-modal">
+                    <form action="#" method="dialog" class="book-form">
+                        <div>
+                            <p>Title: </p><input type="text">
+                        </div>
+                        <div>
+                            <p>Author: </p><input type="text">
+                        </div>
+                        <div>
+                            <p># of pages: </p><input type="number">
+                        </div>
+                        <div>
+                            <div>
+                                <input type="radio" id="book-read" name="read-or-not" value="read">
+                                <label for="book-read">Read</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="book-not-read" name="read-or-not" value="not-read">
+                                <label for="book-not-read">Not Read</label>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="book-modal-buttons">
+                        <button data-add-bbok>Add book</button>
+                        <button data-cancel-book-modal>Cancel</button>
+                    </div>
+                </dialog>
             </aside>
+
             <main class="library-catalog">
                 <h2 class="library-catalog-title">Library Catalog</h2>
                 <div class="library-book">
