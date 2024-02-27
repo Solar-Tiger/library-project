@@ -24,7 +24,7 @@
 }
 
 /* remove default spacing */
-* {
+* :not(dialog) {
   margin: 0;
   padding: 0;
 }
@@ -166,4 +166,20 @@ footer {
 
 .library-book button {
   padding: 5px 15px;
+}
+
+.book-form {
+  display: grid;
+  min-height: 275px;
+}
+
+.book-modal input {
+  padding: 5px 0;
+}
+
+.book-modal-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
