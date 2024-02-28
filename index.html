@@ -20,29 +20,29 @@
                 <button data-remove-book>Remove Book</button>
 
                 <dialog data-add-book-modal class="book-modal">
-                    <form action="#" method="dialog" class="book-form">
+                    <form action="#" method="dialog" id="submit-book" class="book-form">
                         <div>
-                            <p>Title: </p><input type="text">
+                            <p>Title: </p><input type="text" data-book-title>
                         </div>
                         <div>
-                            <p>Author: </p><input type="text">
+                            <p>Author: </p><input type="text" data-book-author>
                         </div>
                         <div>
-                            <p># of pages: </p><input type="number">
+                            <p># of pages: </p><input type="number" data-book-page-number>
                         </div>
                         <div>
                             <div>
                                 <input type="radio" id="book-read" name="read-or-not" value="read">
-                                <label for="book-read">Read</label>
+                                <label for="book-read" data-book-read>Read</label>
                             </div>
                             <div>
                                 <input type="radio" id="book-not-read" name="read-or-not" value="not-read">
-                                <label for="book-not-read">Not Read</label>
+                                <label for="book-not-read" data-book-not-read>Not Read</label>
                             </div>
                         </div>
                     </form>
                     <div class="book-modal-buttons">
-                        <button data-add-bbok>Add book</button>
+                        <button data-add-book form="submit-book">Add book</button>
                         <button data-cancel-book-modal>Cancel</button>
                     </div>
                 </dialog>
