@@ -23,8 +23,6 @@ cancelBookModal.addEventListener('click', () => {
 });
 
 addBook.addEventListener('click', (e) => {
-  e.preventDefault();
-
   const book = new Book(
     bookTitle.value,
     bookAuthor.value,
@@ -32,7 +30,9 @@ addBook.addEventListener('click', (e) => {
     bookWasReadOrNotRead()
   );
 
-  console.log(book);
+  console.log(book.title);
+
+  createBook(book.title, book.author, book.numberOfPages);
 });
 
 function Book(title, author, numberOfPages, readOrNotRead) {
@@ -57,13 +57,12 @@ function createBook(title, author, numberOfPages) {
   newDiv.innerHTML = `<div>
     <h3>${title}</h3>
     <p>${author}</p>
-</div>
-<p>${numberOfPages} pages</p>
-<div>
+  </div>
+  <p>${numberOfPages} pages</p>
+  <div>
     <button>Read</button>
-    <button>Not read</button>`;
+    <button>Not read</button>
+  </div>`;
+
   libraryCatalog.appendChild(newDiv);
 }
-
-createBook('test', 'testing', 123);
-createBook('new test', 'more testing', 222);
