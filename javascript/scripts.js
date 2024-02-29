@@ -28,10 +28,9 @@ addBook.addEventListener('click', (e) => {
   const book = new Book(
     bookTitle.value,
     bookAuthor.value,
-    bookPageNumber.value
+    bookPageNumber.value,
+    bookWasReadOrNotRead()
   );
-
-  console.dir(bookRead);
 
   console.log(book);
 });
@@ -43,4 +42,28 @@ function Book(title, author, numberOfPages, readOrNotRead) {
   this.readOrNotRead = readOrNotRead;
 }
 
-console.dir(bookTitle);
+function bookWasReadOrNotRead() {
+  return bookRead.checked
+    ? bookRead.nextElementSibling.textContent
+    : bookNotRead.nextElementSibling.textContent;
+}
+
+function createBook(title, author, numberOfPages) {
+  const newDiv = document.createElement('div');
+  const libraryCatalog = document.querySelector('[data-library-catalog]');
+
+  newDiv.classList.add('library-book');
+
+  newDiv.innerHTML = `<div>
+    <h3>${title}</h3>
+    <p>${author}</p>
+</div>
+<p>${numberOfPages} pages</p>
+<div>
+    <button>Read</button>
+    <button>Not read</button>`;
+  libraryCatalog.appendChild(newDiv);
+}
+
+createBook('test', 'testing', 123);
+createBook('new test', 'more testing', 222);
