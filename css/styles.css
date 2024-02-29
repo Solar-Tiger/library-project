@@ -100,7 +100,7 @@ footer {
 .library-main {
   display: grid;
   grid-template-columns: 0.1fr 1fr;
-  max-height: var(--library-main);
+  height: var(--library-main);
 
   & aside {
     display: flex;
