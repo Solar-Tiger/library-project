@@ -31,7 +31,9 @@ addBook.addEventListener('click', () => {
     bookPageNumber.value,
     bookWasReadOrNotRead()
   );
+
   createBook(book.title, book.author, book.numberOfPages);
+
   library.push(book);
   console.log(library);
 });
@@ -40,8 +42,10 @@ addBook.addEventListener('click', () => {
 removeBook.addEventListener('click', () => {
   const deleteButton = document.querySelectorAll('.delete');
   const removeEl = document.querySelectorAll('.library-book');
+
   for (let i = 0; i < deleteButton.length; i++) {
     deleteButton[i].classList.remove('hidden');
+
     deleteButton[i].addEventListener('click', () => {
       removeEl[i].remove();
     });
@@ -67,7 +71,9 @@ function bookWasReadOrNotRead() {
 function createBook(title, author, numberOfPages) {
   const newDiv = document.createElement('div');
   const libraryCatalog = document.querySelector('[data-library-catalog]');
+
   newDiv.classList.add('library-book');
+
   newDiv.innerHTML = `<button class="delete hidden">X</button>
   <div>
     <h3>${title}</h3>
