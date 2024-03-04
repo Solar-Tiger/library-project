@@ -2,6 +2,7 @@
 const newBook = document.querySelector('[data-new-book]');
 const addBook = document.querySelector('[data-add-book]');
 const removeBook = document.querySelector('[data-remove-book]');
+const cancelBook = document.querySelector('[data-cancel-book]');
 const cancelBookModal = document.querySelector('[data-cancel-book-modal]');
 const addBookModal = document.querySelector('[data-add-book-modal]');
 
@@ -11,6 +12,7 @@ const bookAuthor = document.querySelector('[data-book-author');
 const bookPageNumber = document.querySelector('[data-book-page-number');
 const bookRead = document.querySelector('[data-book-read');
 const bookNotRead = document.querySelector('[data-book-not-read');
+
 const library = [];
 
 // Show book modal
@@ -35,21 +37,57 @@ addBook.addEventListener('click', () => {
   createBook(book.title, book.author, book.numberOfPages);
 
   library.push(book);
-  console.log(library);
+
+  checkIfLibraryIsEmpty();
 });
 
 // Function to display book deletion
 removeBook.addEventListener('click', () => {
-  const deleteButton = document.querySelectorAll('.delete');
-  const removeEl = document.querySelectorAll('.library-book');
+  const removeEl = function () {
+    return document.querySelectorAll('.library-book');
+  };
 
-  for (let i = 0; i < deleteButton.length; i++) {
-    deleteButton[i].classList.remove('hidden');
+  newBook.disabled = true;
+  removeBook.disabled = true;
 
-    deleteButton[i].addEventListener('click', () => {
-      removeEl[i].remove();
-    });
+  deleteMyBooks();
+
+  function deleteMyBooks() {
+    for (let i = 0; i < library.length; i++) {
+      const delBtn = document.createElement('button');
+
+      delBtn.classList.add('delete');
+      delBtn.textContent = 'X';
+
+      removeEl()[i].insertBefore(delBtn, removeEl()[i].firstChild);
+
+      delBtn.addEventListener('click', () => {
+        removeEl()[i].remove();
+        library.splice(i, 1);
+
+        removeXButton();
+
+        removeEl();
+
+        deleteMyBooks();
+      });
+    }
   }
+});
+
+// Function to remove the "X" button
+function removeXButton() {
+  const deleteButton = document.querySelectorAll('.delete');
+  for (let i = 0; i < deleteButton.length; i++) {
+    deleteButton[i].remove();
+  }
+}
+
+// Function for canceling book remove action
+cancelBook.addEventListener('click', () => {
+  newBook.disabled = false;
+  removeXButton();
+  checkIfLibraryIsEmpty();
 });
 
 // Book constructor
@@ -73,9 +111,8 @@ function createBook(title, author, numberOfPages) {
   const libraryCatalog = document.querySelector('[data-library-catalog]');
 
   newDiv.classList.add('library-book');
-
-  newDiv.innerHTML = `<button class="delete hidden">X</button>
-  <div>
+  newDiv.innerHTML = `
+  <div class="book-title">
     <h3>${title}</h3>
     <p>${author}</p>
   </div>
@@ -85,4 +122,12 @@ function createBook(title, author, numberOfPages) {
     <button>Not read</button>
   </div>`;
   libraryCatalog.appendChild(newDiv);
+}
+
+function checkIfLibraryIsEmpty() {
+  if (library.length === 0) {
+    removeBook.disabled = true;
+  } else {
+    removeBook.disabled = false;
+  }
 }
