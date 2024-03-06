@@ -97,7 +97,14 @@ footer {
   height: var(--library-footer);
 }
 
+.library-name {
+  text-align: center;
+  padding: 0.5rem;
+}
+
 .library-main {
+  min-height: var(--library-main);
+
   & aside {
     display: flex;
     justify-content: center;
