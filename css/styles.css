@@ -98,16 +98,12 @@ footer {
 }
 
 .library-main {
-  display: grid;
-  grid-template-columns: 0.1fr 1fr;
-  height: var(--library-main);
-
   & aside {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 0.5rem;
     gap: 2rem;
-    padding-top: 2rem;
     border: 2px solid black;
 
     & button {
@@ -120,9 +116,8 @@ footer {
 
 .library-catalog {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: auto;
-  max-height: var(--library-main);
   justify-items: center;
   align-content: start;
   overflow-y: auto;
@@ -140,7 +135,19 @@ footer {
 }
 
 .library-catalog-title {
-  grid-column: span 3;
+  grid-column: 1/4;
+}
+
+@media screen and (max-width: 754px) {
+  .library-catalog-title {
+    grid-column: 1/3;
+  }
+}
+
+@media screen and (max-width: 503px) {
+  .library-catalog-title {
+    grid-column: 1/2;
+  }
 }
 
 .library-book {
@@ -193,4 +200,32 @@ footer {
 
 .hidden {
   display: none;
+}
+
+@media screen and (min-width: 950px) {
+  .library-main {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr;
+    height: var(--library-main);
+    overflow-y: auto;
+
+    & aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 2rem;
+      border: 2px solid black;
+    }
+  }
+
+  .library-catalog {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: var(--library-main);
+  }
+
+  .library-catalog-title {
+    grid-column: span 3;
+  }
 }
