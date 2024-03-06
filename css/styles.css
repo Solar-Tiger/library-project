@@ -5,7 +5,12 @@
 
   --library-header: 80px;
   --library-footer: 2rem;
+  --library-aside: 4rem;
   --library-main: calc(100vh - (var(--library-header) + var(--library-footer)));
+  --library-cataglog-scroll: calc(
+    100vh -
+      (var(--library-header) + var(--library-footer) + var(--library-aside))
+  );
 }
 
 /*  
@@ -234,5 +239,15 @@ footer {
 
   .library-catalog-title {
     grid-column: span 3;
+  }
+}
+
+@media screen and (max-width: 949px) {
+  aside {
+    min-height: var(--library-aside);
+  }
+
+  .library-catalog {
+    height: var(--library-cataglog-scroll);
   }
 }
