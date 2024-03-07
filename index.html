@@ -10,62 +10,51 @@
 
 <body>
     <div class="library-container">
-        <header>
+        <header class="library-header">
             <h1 class="library-name">Random's Sweet Little Library</h1>
         </header>
 
-        <div class="library-main">
-            <aside>
-                <button data-new-book>New Book</button>
-                <button data-remove-book disabled>Remove Book</button>
-                <button data-cancel-book>Cancel</button>
-                <dialog data-add-book-modal class="book-modal">
-                    <form action="#" method="dialog" id="submit-book" class="book-form">
-                        <div>
-                            <p>Title: </p><input type="text" data-book-title>
-                        </div>
-                        <div>
-                            <p>Author: </p><input type="text" data-book-author>
-                        </div>
-                        <div>
-                            <p># of pages: </p><input type="number" data-book-page-number>
-                        </div>
-                        <div>
-                            <div>
-                                <input type="radio" id="book-read" name="read-or-not" value="read" data-book-read>
-                                <label for="book-read">Read</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="book-not-read" name="read-or-not" value="not-read"
-                                    data-book-not-read>
-                                <label for="book-not-read">Not Read</label>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="book-modal-buttons">
-                        <button data-add-book form="submit-book">Add book</button>
-                        <button data-cancel-book-modal>Cancel</button>
-                    </div>
-                </dialog>
-            </aside>
+        <aside class="library-aside">
+            <button data-new-book>New Book</button>
+            <button data-remove-book disabled>Remove Book</button>
+            <button data-cancel-book>Cancel</button>
 
-            <main class="library-catalog" data-library-catalog>
-                <h2 class="library-catalog-title">Library Catalog</h2>
-                <!-- <div class="library-book">
+            <dialog data-add-book-modal class="book-modal">
+                <form action="#" method="dialog" id="submit-book" class="book-form">
                     <div>
-                        <h3>Into the Land of the Unicorns</h3>
-                        <p>Bruce Coville</p>
+                        <p>Title: </p><input type="text" data-book-title>
                     </div>
-                    <p>159 pages</p>
                     <div>
-                        <button>Read</button>
-                        <button>Not read</button>
+                        <p>Author: </p><input type="text" data-book-author>
                     </div>
-                </div> -->
-            </main>
-        </div>
+                    <div>
+                        <p># of pages: </p><input type="number" data-book-page-number>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="radio" id="book-read" name="read-or-not" value="read" data-book-read>
+                            <label for="book-read">Read</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="book-not-read" name="read-or-not" value="not-read"
+                                data-book-not-read>
+                            <label for="book-not-read">Not Read</label>
+                        </div>
+                    </div>
+                </form>
+                <div class="book-modal-buttons">
+                    <button data-add-book form="submit-book">Add book</button>
+                    <button data-cancel-book-modal>Cancel</button>
+                </div>
+            </dialog>
+        </aside>
 
-        <footer>
+        <main class="library-catalog" data-library-catalog>
+            <h2 class="library-catalog-title">Library Catalog</h2>
+
+        </main>
+
+        <footer class="library-footer">
             <p>My footer</p>
         </footer>
     </div>
