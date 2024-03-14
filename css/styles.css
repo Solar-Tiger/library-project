@@ -107,24 +107,12 @@ button {
   padding: 0.5rem;
 }
 
-.library-main {
-  & aside {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    gap: 2rem;
-    border: 2px solid black;
-  }
-}
-
 .library-aside {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
   gap: 2rem;
-  border: 2px solid black;
 
   & button {
     padding: 5px 15px;
@@ -140,33 +128,13 @@ button {
   justify-items: center;
   align-content: start;
   overflow-y: auto;
-
-  & h2 {
-    margin-top: 2rem;
-  }
 }
 
-.library-catalog > *:not(h2) {
+.library-catalog > * {
   width: 250px;
   height: 350px;
   border: 2px solid black;
   margin: 2rem 0;
-}
-
-.library-catalog-title {
-  grid-column: 1/4;
-}
-
-@media screen and (max-width: 754px) {
-  .library-catalog-title {
-    grid-column: 1/3;
-  }
-}
-
-@media screen and (max-width: 503px) {
-  .library-catalog-title {
-    grid-column: 1/2;
-  }
 }
 
 .library-book {
@@ -245,10 +213,6 @@ button {
   .library-catalog {
     grid-template-columns: repeat(3, 1fr);
     height: var(--library-main);
-  }
-
-  .library-catalog-title {
-    grid-column: span 3;
   }
 }
 
