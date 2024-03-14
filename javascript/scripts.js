@@ -34,18 +34,16 @@ addBook.addEventListener('click', () => {
     bookWasReadOrNotRead()
   );
 
-  createBook(book.title, book.author, book.numberOfPages);
-
   library.push(book);
+
+  createBook(library);
 
   checkIfLibraryIsEmpty();
 });
 
 // Function to display book deletion
 removeBook.addEventListener('click', () => {
-  const removeEl = function () {
-    return document.querySelectorAll('.library-book');
-  };
+  const removeEl = () => document.querySelectorAll('.library-book');
 
   newBook.disabled = true;
   removeBook.disabled = true;
@@ -96,7 +94,15 @@ function Book(title, author, numberOfPages, readOrNotRead) {
   this.author = author;
   this.numberOfPages = numberOfPages;
   this.readOrNotRead = readOrNotRead;
+  this.info = function () {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readOrNotRead}`;
+  };
 }
+
+Book.prototype.doThings = function (isBookRead) {
+  isBookRead.style.backgroundColor = 'green';
+  isBookRead.disabled = true;
+};
 
 // Used to determine if a book is read or not based on the checked status of the radio buttons
 function bookWasReadOrNotRead() {
@@ -106,22 +112,30 @@ function bookWasReadOrNotRead() {
 }
 
 // Takes the info gotten from the Book constructor and displays it to the user
-function createBook(title, author, numberOfPages) {
-  const newDiv = document.createElement('div');
+function createBook(bookInfo) {
   const libraryCatalog = document.querySelector('[data-library-catalog]');
 
-  newDiv.classList.add('library-book');
-  newDiv.innerHTML = `
+  libraryCatalog.innerHTML = '';
+
+  for (let i = 0; i < library.length; i++) {
+    const newDiv = document.createElement('div');
+
+    newDiv.classList.add('library-book');
+    newDiv.setAttribute('data-book-id', `${i}`);
+
+    newDiv.innerHTML = `
   <div class="book-title">
-    <h3>${title}</h3>
-    <p>${author}</p>
+    <h3>${bookInfo[i].title}</h3>
+    <p>${bookInfo[i].author}</p>
   </div>
-  <p>${numberOfPages} pages</p>
+  <p>${bookInfo[i].numberOfPages} pages</p>
   <div>
-    <button>Read</button>
-    <button>Not read</button>
+    <button data-read>Read</button>
+    <button data-not-read>Not read</button>
   </div>`;
-  libraryCatalog.appendChild(newDiv);
+
+    libraryCatalog.appendChild(newDiv);
+  }
 }
 
 function checkIfLibraryIsEmpty() {
