@@ -100,8 +100,10 @@ function Book(title, author, numberOfPages, readOrNotRead) {
 }
 
 Book.prototype.doThings = function (isBookRead) {
-  isBookRead.style.backgroundColor = 'green';
-  isBookRead.disabled = true;
+  // isBookRead.style.backgroundColor = 'green';
+  // isBookRead.disabled = true;
+
+  console.log('Hello');
 };
 
 // Used to determine if a book is read or not based on the checked status of the radio buttons
@@ -121,7 +123,6 @@ function createBook(bookInfo) {
     const newDiv = document.createElement('div');
 
     newDiv.classList.add('library-book');
-    newDiv.setAttribute('data-book-id', `${i}`);
 
     newDiv.innerHTML = `
   <div class="book-title">
@@ -130,11 +131,17 @@ function createBook(bookInfo) {
   </div>
   <p>${bookInfo[i].numberOfPages} pages</p>
   <div>
-    <button data-read>Read</button>
+    <button data-read-${i}>Read</button>
     <button data-not-read>Not read</button>
   </div>`;
 
     libraryCatalog.appendChild(newDiv);
+
+    const readBook = document.querySelector(`[data-read-${i}]`);
+
+    readBook.addEventListener('click', () => {
+      bookInfo[i].doThings();
+    });
   }
 }
 
