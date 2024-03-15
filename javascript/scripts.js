@@ -26,7 +26,8 @@ cancelBookModal.addEventListener('click', () => {
 });
 
 // Function for creating a book and appending it to the page
-addBook.addEventListener('click', () => {
+addBook.addEventListener('click', (event) => {
+  event.preventDefault();
   const book = new Book(
     bookTitle.value,
     bookAuthor.value,
@@ -39,6 +40,8 @@ addBook.addEventListener('click', () => {
   createBook(library);
 
   checkIfLibraryIsEmpty();
+
+  addBookModal.close();
 });
 
 // Function to display book deletion
@@ -99,11 +102,20 @@ function Book(title, author, numberOfPages, readOrNotRead) {
   };
 }
 
-Book.prototype.doThings = function (isBookRead) {
-  // isBookRead.style.backgroundColor = 'green';
-  // isBookRead.disabled = true;
+Book.prototype.doThings = function (isBookRead, isBookNotRead) {
+  if (isBookRead.textContent === 'Read') {
+    isBookRead.style.backgroundColor = 'green';
+    isBookRead.disabled = true;
 
-  console.log('Hello');
+    isBookNotRead.disabled = false;
+    isBookNotRead.style.backgroundColor = 'white';
+  } else if (isBookRead.textContent === 'Not read') {
+    isBookRead.style.backgroundColor = 'red';
+    isBookRead.disabled = true;
+
+    isBookNotRead.disabled = false;
+    isBookNotRead.style.backgroundColor = 'white';
+  }
 };
 
 // Used to determine if a book is read or not based on the checked status of the radio buttons
@@ -132,16 +144,33 @@ function createBook(bookInfo) {
   <p>${bookInfo[i].numberOfPages} pages</p>
   <div>
     <button data-read-${i}>Read</button>
-    <button data-not-read>Not read</button>
+    <button data-not-read-${i}>Not read</button>
   </div>`;
 
     libraryCatalog.appendChild(newDiv);
 
-    const readBook = document.querySelector(`[data-read-${i}]`);
+    updateBookReadStatus(bookInfo, i);
+  }
+}
 
-    readBook.addEventListener('click', () => {
-      bookInfo[i].doThings();
-    });
+function updateBookReadStatus(bookCurrentInfo, index) {
+  const readBook = document.querySelector(`[data-read-${index}]`);
+  const notReadBook = document.querySelector(`[data-not-read-${index}]`);
+
+  readBook.addEventListener('click', () => {
+    bookCurrentInfo[index].doThings(readBook, notReadBook);
+    bookCurrentInfo[index].readOrNotRead = 'Read';
+  });
+
+  notReadBook.addEventListener('click', () => {
+    bookCurrentInfo[index].doThings(notReadBook, readBook);
+    bookCurrentInfo[index].readOrNotRead = 'Not read';
+  });
+
+  if (bookCurrentInfo[index].readOrNotRead === 'Read') {
+    bookCurrentInfo[index].doThings(readBook, notReadBook);
+  } else if (bookCurrentInfo[index].readOrNotRead === 'Not Read') {
+    bookCurrentInfo[index].doThings(notReadBook, readBook);
   }
 }
 
