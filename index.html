@@ -22,13 +22,16 @@
             <dialog data-add-book-modal class="book-modal">
                 <form action="#" method="dialog" id="submit-book" class="book-form">
                     <div>
-                        <p>Title: </p><input type="text" data-book-title>
+                        <label for="book-title">Book Title: </label>
+                        <input type="text" id="book-title" name="book-title" data-book-title>
                     </div>
                     <div>
-                        <p>Author: </p><input type="text" data-book-author>
+                        <label for="book-author">Book Author: </label>
+                        <input type="text" id="book-author" name="book-author" data-book-author>
                     </div>
                     <div>
-                        <p># of pages: </p><input type="number" data-book-page-number>
+                        <label for="total-page-number"># of pages: </label>
+                        <input type="number" id="total-page-number" name="total-page-number" data-book-page-number>
                     </div>
                     <div>
                         <div>
@@ -43,7 +46,7 @@
                     </div>
                 </form>
                 <div class="book-modal-buttons">
-                    <button data-add-book form="submit-book">Add book</button>
+                    <button type="submit" form="submit-book" data-add-book>Add book</button>
                     <button data-cancel-book-modal>Cancel</button>
                 </div>
             </dialog>
