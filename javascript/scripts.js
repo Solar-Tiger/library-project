@@ -48,6 +48,12 @@ addBook.addEventListener('click', (event) => {
 removeBook.addEventListener('click', () => {
   const removeEl = () => document.querySelectorAll('.library-book');
 
+  // const removeEl2 = document.querySelectorAll(".library-book")
+  // console.log(removeEl2);
+  // removeEl2.forEach((removedEl, index) => {
+  //   console.log(removedEl.lastElementChild.querySelector(`button[data-read-${index}]`));
+  // })
+
   newBook.disabled = true;
   removeBook.disabled = true;
 
@@ -88,6 +94,7 @@ function removeXButton() {
 cancelBook.addEventListener('click', () => {
   newBook.disabled = false;
   removeXButton();
+  createBook(library);
   checkIfLibraryIsEmpty();
 });
 
@@ -109,7 +116,7 @@ Book.prototype.doThings = function (isBookRead, isBookNotRead) {
 
     isBookNotRead.disabled = false;
     isBookNotRead.style.backgroundColor = 'white';
-  } else if (isBookRead.textContent === 'Not read') {
+  } else if (isBookRead.textContent === 'Not Read') {
     isBookRead.style.backgroundColor = 'red';
     isBookRead.disabled = true;
 
@@ -144,7 +151,7 @@ function createBook(bookInfo) {
   <p>${bookInfo[i].numberOfPages} pages</p>
   <div>
     <button data-read-${i}>Read</button>
-    <button data-not-read-${i}>Not read</button>
+    <button data-not-read-${i}>Not Read</button>
   </div>`;
 
     libraryCatalog.appendChild(newDiv);
@@ -164,7 +171,7 @@ function updateBookReadStatus(bookCurrentInfo, index) {
 
   notReadBook.addEventListener('click', () => {
     bookCurrentInfo[index].doThings(notReadBook, readBook);
-    bookCurrentInfo[index].readOrNotRead = 'Not read';
+    bookCurrentInfo[index].readOrNotRead = 'Not Read';
   });
 
   if (bookCurrentInfo[index].readOrNotRead === 'Read') {
