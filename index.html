@@ -19,11 +19,11 @@
             <button data-remove-book disabled>Remove Book</button>
             <button data-cancel-book>Cancel</button>
 
-            <dialog data-add-book-modal class="book-modal">
+            <dialog class="book-modal" data-add-book-modal>
                 <form action=" #" method="dialog" id="submit-book" class="book-form">
                     <div class="book-modal-info">
                         <label for="book-title">Book Title: </label>
-                        <input type="text" id="book-title" name="book-title" data-book-title>
+                        <input type="text" id="book-title" name="book-title" data-book-title required>
 
                         <label for="book-author">Book Author: </label>
                         <input type="text" id="book-author" name="book-author" data-book-author>
@@ -44,7 +44,7 @@
                     </div>
                 </form>
                 <div class="book-modal-buttons">
-                    <button type="submit" form="submit-book" data-add-book>Add book</button>
+                    <button form="submit-book" data-add-book>Add book</button>
                     <button data-cancel-book-modal>Cancel</button>
                 </div>
             </dialog>
