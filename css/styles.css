@@ -165,11 +165,25 @@ button {
 
 .book-form {
   display: grid;
-  min-height: 275px;
+  grid-template-rows: 1fr 0.3fr;
+  min-height: 250px;
+  max-width: 300px;
+}
+
+.book-form > :last-child {
+  justify-self: center;
+  align-self: center;
+}
+
+.book-modal-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
 }
 
 .book-modal input {
-  padding: 5px 0;
+  padding: 5px;
 }
 
 .book-modal-buttons {
