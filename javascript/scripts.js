@@ -5,6 +5,7 @@ const removeBook = document.querySelector('[data-remove-book]');
 const cancelBook = document.querySelector('[data-cancel-book]');
 const cancelBookModal = document.querySelector('[data-cancel-book-modal]');
 const addBookModal = document.querySelector('[data-add-book-modal]');
+const addBookForm = document.querySelector('[data-book-form]');
 
 // User info to use for book constructor
 const bookTitle = document.querySelector('[data-book-title');
@@ -26,33 +27,25 @@ cancelBookModal.addEventListener('click', () => {
 });
 
 // Function for creating a book and appending it to the page
-addBook.addEventListener('click', (event) => {
-  event.preventDefault();
-  const book = new Book(
-    bookTitle.value,
-    bookAuthor.value,
-    bookPageNumber.value,
-    bookWasReadOrNotRead()
-  );
+addBook.addEventListener('click', () => {
+  if (addBookForm.checkValidity() === true) {
+    const book = new Book(
+      bookTitle.value,
+      bookAuthor.value,
+      bookPageNumber.value,
+      bookWasReadOrNotRead()
+    );
 
-  library.push(book);
-
-  createBook(library);
-
-  checkIfLibraryIsEmpty();
-
-  addBookModal.close();
+    library.push(book);
+    createBook(library);
+    checkIfLibraryIsEmpty();
+    addBookModal.close();
+  }
 });
 
 // Function to display book deletion
 removeBook.addEventListener('click', () => {
   const removeEl = () => document.querySelectorAll('.library-book');
-
-  // const removeEl2 = document.querySelectorAll(".library-book")
-  // console.log(removeEl2);
-  // removeEl2.forEach((removedEl, index) => {
-  //   console.log(removedEl.lastElementChild.querySelector(`button[data-read-${index}]`));
-  // })
 
   newBook.disabled = true;
   removeBook.disabled = true;
@@ -73,9 +66,7 @@ removeBook.addEventListener('click', () => {
         library.splice(i, 1);
 
         removeXButton();
-
         removeEl();
-
         deleteMyBooks();
       });
     }
@@ -98,31 +89,28 @@ cancelBook.addEventListener('click', () => {
   checkIfLibraryIsEmpty();
 });
 
-// Book constructor
+// Book constructor to create a book using a title, author, page number and if it's read or not
 function Book(title, author, numberOfPages, readOrNotRead) {
   this.title = title;
   this.author = author;
   this.numberOfPages = numberOfPages;
   this.readOrNotRead = readOrNotRead;
-  this.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readOrNotRead}`;
+  this.info = function bookInfo() {
+    return `${this.title} by ${this.author}, ${this.numberOfPages} pages, ${this.readOrNotRead}`;
   };
 }
 
+// Changes color of read status buttons with green and red to know what is read or not read
 Book.prototype.doThings = function (isBookRead, isBookNotRead) {
   if (isBookRead.textContent === 'Read') {
     isBookRead.style.backgroundColor = 'green';
-    isBookRead.disabled = true;
-
-    isBookNotRead.disabled = false;
-    isBookNotRead.style.backgroundColor = 'white';
-  } else if (isBookRead.textContent === 'Not Read') {
+  } else {
     isBookRead.style.backgroundColor = 'red';
-    isBookRead.disabled = true;
-
-    isBookNotRead.disabled = false;
-    isBookNotRead.style.backgroundColor = 'white';
   }
+
+  isBookRead.disabled = true;
+  isBookNotRead.disabled = false;
+  isBookNotRead.style.backgroundColor = 'white';
 };
 
 // Used to determine if a book is read or not based on the checked status of the radio buttons
@@ -146,9 +134,9 @@ function createBook(bookInfo) {
     newDiv.innerHTML = `
   <div class="book-title">
     <h3>${bookInfo[i].title}</h3>
-    <p>${bookInfo[i].author}</p>
+    <p>Written by: ${bookInfo[i].author}</p>
   </div>
-  <p>${bookInfo[i].numberOfPages} pages</p>
+  <p>Total pages: ${bookInfo[i].numberOfPages}</p>
   <div>
     <button data-read-${i}>Read</button>
     <button data-not-read-${i}>Not Read</button>
@@ -164,21 +152,25 @@ function updateBookReadStatus(bookCurrentInfo, index) {
   const readBook = document.querySelector(`[data-read-${index}]`);
   const notReadBook = document.querySelector(`[data-not-read-${index}]`);
 
+  function currentReadStatus(isRead) {
+    if (isRead === 'Read') {
+      bookCurrentInfo[index].doThings(readBook, notReadBook);
+      bookCurrentInfo[index].readOrNotRead = 'Read';
+    } else {
+      bookCurrentInfo[index].doThings(notReadBook, readBook);
+      bookCurrentInfo[index].readOrNotRead = 'Not Read';
+    }
+  }
+
   readBook.addEventListener('click', () => {
-    bookCurrentInfo[index].doThings(readBook, notReadBook);
-    bookCurrentInfo[index].readOrNotRead = 'Read';
+    currentReadStatus('Read');
   });
 
   notReadBook.addEventListener('click', () => {
-    bookCurrentInfo[index].doThings(notReadBook, readBook);
-    bookCurrentInfo[index].readOrNotRead = 'Not Read';
+    currentReadStatus('Not Read');
   });
 
-  if (bookCurrentInfo[index].readOrNotRead === 'Read') {
-    bookCurrentInfo[index].doThings(readBook, notReadBook);
-  } else if (bookCurrentInfo[index].readOrNotRead === 'Not Read') {
-    bookCurrentInfo[index].doThings(notReadBook, readBook);
-  }
+  currentReadStatus(bookCurrentInfo[index].readOrNotRead);
 }
 
 function checkIfLibraryIsEmpty() {
