@@ -165,7 +165,6 @@ button {
 
 .book-form {
   display: grid;
-  grid-template-rows: 1fr 0.3fr;
   min-height: 250px;
   max-width: 300px;
 }
